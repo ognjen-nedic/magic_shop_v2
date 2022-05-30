@@ -12,9 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/products')]
 class ProductController extends AbstractController
 {
-    #[Route('/products')]
     #[Route('/', name: 'list_products')]
     public function list_product(Request $request, ProductRepository $productRepository, TypeRepository $typeRepository, RarityRepository $rarityRepository) {
         $products = $productRepository->findAll();
@@ -38,8 +38,9 @@ class ProductController extends AbstractController
 
         if($request->request->get('reset_filtering')):
             //return new Response(dd($productRepository->max_price_from_each_type()));
-            //$products = $productRepository->max_price_from_each_type();
-            $products = $productRepository->findAll();
+            //$products = $productRepository->findAll();
+            //dd($productRepository->max_price_from_each_type());
+            $products = $productRepository->max_price_from_each_type();
         endif;
 
 
