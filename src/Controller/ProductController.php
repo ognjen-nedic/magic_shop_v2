@@ -31,16 +31,18 @@ class ProductController extends AbstractController
             $products = $productRepository->filter_by_rarity($request->request->get('rarity_filter_select'));
         endif;
 
-        /* if($request->request->get('price-range') && $request->request->get('min-price') && $request->request->get('max-price')): */
         if($request->request->get('price-range')):
-            $products = $productRepository->filter_by_price_range($request->request->get('min-price'), $request->request->get('max-price'));
+            $products = $productRepository->filter_by_price_range(
+                $request->request->get('min-price'), 
+                $request->request->get('max-price'));
         endif; 
 
-        if($request->request->get('reset_filtering')):
-            //return new Response(dd($productRepository->max_price_from_each_type()));
-            //$products = $productRepository->findAll();
-            //dd($productRepository->max_price_from_each_type());
+        if($request->request->get('max-price-by-type')):
             $products = $productRepository->max_price_from_each_type();
+        endif;
+
+        if($request->request->get('reset_filtering')):
+            $products = $productRepository->findAll();
         endif;
 
 
